@@ -8,9 +8,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
-const TodoFilter = () => {
-  const [position, setPosition] = useState("bottom");
+
+
+const TodoFilter = ({ priority, setPriority }) => {
+  
 
   return (
     <DropdownMenu>
