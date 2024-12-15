@@ -7,6 +7,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAddTodoMutation } from "@/redux/api/api";
@@ -19,6 +28,7 @@ import { FormEvent, useState } from "react";
 const AddTodoModal = () => {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState("");
 
   //! For local state management
   // const dispatch = useAppDispatch();
@@ -29,7 +39,7 @@ const AddTodoModal = () => {
   const [addTodo, { data, isLoading, isSuccess, isError }] =
     useAddTodoMutation();
 
-  console.log({ data, isLoading, isSuccess, isError });
+  console.log({ data, isLoading, isSuccess, isError, priority });
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -38,6 +48,7 @@ const AddTodoModal = () => {
       // id: randomString,
       title: task,
       description,
+      isCompleted: false,
       // priority
     };
     // console.log(taskDetails);
@@ -80,6 +91,24 @@ const AddTodoModal = () => {
                 id="description"
                 className="col-span-3"
               />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="description" className="text-right">
+                Priority
+              </Label>
+              <Select onValueChange={(value) => setPriority(value)}>
+                <SelectTrigger className="call-span-3">
+                  <SelectValue placeholder="Select a fruit" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Priority</SelectLabel>
+                    <SelectItem value="high">High</SelectItem>
+                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="low">Low</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <div className="flex justify-end">
